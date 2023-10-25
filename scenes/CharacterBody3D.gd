@@ -50,8 +50,8 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("shoot"):
 		instance = Bullet.instantiate()
-		#instance.global_position = HORN_RAY.global_position
-		instance.global_transform = HORN_RAY.global_transform
+		instance.position = HORN_RAY.global_position
+		instance.transform.basis = HORN_RAY.global_transform.basis
 		get_parent().add_child(instance)
 
 	# Handle Jump.
@@ -75,8 +75,7 @@ func update_camera(delta):
 	camera_basis.x += mouse_tilt * delta
 	camera_basis.x = clamp(camera_basis.x, TILT_LOWER, TILT_HIGH)
 	camera_basis.y += mouse_rotation * delta
-		
-	#CAMERA.transform.basis = Basis.from_euler(camera_basis)
+	
 	CAMERA.transform.basis = Basis.from_euler(Vector3(camera_basis.x, 0, 0))
 	CAMERA.rotation.z = 0.0
 	
